@@ -2,7 +2,18 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { PlantDiagnosisResult } from "./types";
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY as string });
+let aiInstance: GoogleGenAI | null = null;
+
+const getAI = () => {
+  if (!aiInstance) {
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      console.warn("GEMINI_API_KEY is missing. AI features will not work.");
+    }
+    aiInstance = new GoogleGenAI({ apiKey: apiKey || "" });
+  }
+  return aiInstance;
+};
 
 const diagnosisSchema = {
   type: Type.OBJECT,
@@ -30,6 +41,11 @@ const diagnosisSchema = {
 };
 
 export const diagnosePlantByImage = async (base64Image: string, mimeType: string): Promise<PlantDiagnosisResult> => {
+  const ai = getAI();
+  if (!process.env.GEMINI_API_KEY) {
+    throw new Error("API 키가 설정되지 않았습니다. Vercel 환경 변수 설정을 확인해주세요.");
+  }
+  
   const response = await ai.models.generateContent({
     model: 'gemini-3-flash-preview',
     contents: {
@@ -48,6 +64,11 @@ export const diagnosePlantByImage = async (base64Image: string, mimeType: string
 };
 
 export const diagnosePlantByText = async (description: string): Promise<PlantDiagnosisResult> => {
+  const ai = getAI();
+  if (!process.env.GEMINI_API_KEY) {
+    throw new Error("API 키가 설정되지 않았습니다. Vercel 환경 변수 설정을 확인해주세요.");
+  }
+
   const response = await ai.models.generateContent({
     model: 'gemini-3-flash-preview',
     contents: `다음 식물 증상 설명을 바탕으로 진단해줘: "${description}". 식물 이름(추정), 진단 결과, 원인, 치료 방법, 예방 조치, 심각도를 한국어로 상세히 알려줘. JSON 형식으로 응답해.`,
