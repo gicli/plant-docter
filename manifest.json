@@ -1,0 +1,21 @@
+{
+  "name": "꽃의사 - AI 식물 진단",
+  "short_name": "꽃의사",
+  "description": "AI로 식물의 건강을 진단하고 관리하는 꽃의사 서비스입니다.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f6f8f6",
+  "theme_color": "#2bee6c",
+  "icons": [
+    {
+      "src": "https://picsum.photos/seed/flower-doctor/192/192",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://picsum.photos/seed/flower-doctor/512/512",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
