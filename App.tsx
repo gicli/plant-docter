@@ -25,8 +25,8 @@ import {
 const Header: React.FC<{ title?: string }> = ({ title = "꽃의사" }) => (
   <header className="flex items-center justify-between px-6 pt-12 pb-4">
     <div className="flex items-center gap-3">
-      <div className="size-10 rounded-full bg-primary/20 flex items-center justify-center overflow-hidden border border-primary/10">
-        <img alt="User Profile" className="w-full h-full object-cover" src="https://picsum.photos/seed/gardener/100/100" referrerPolicy="no-referrer" />
+      <div className="size-10 rounded-xl bg-primary/20 flex items-center justify-center overflow-hidden border border-primary/10 shadow-sm">
+        <img alt="꽃의사 로고" className="w-full h-full object-cover" src="https://picsum.photos/seed/flower-and-stethoscope/180/180" referrerPolicy="no-referrer" />
       </div>
       <h1 className="text-[#0d1b12] dark:text-white text-xl font-extrabold tracking-tight">
         {title} <span className="text-primary font-medium text-sm ml-1">진단</span>
